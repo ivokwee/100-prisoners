@@ -79,7 +79,7 @@ for(i in 1:100000) {
 
 ## plot example graph
 png("graph.png")
-plot(G, vertex.shape="square", vertex.size=7, layout=layout_with_fr)
+plot(G, vertex.shape="square", vertex.size=8, layout=layout_with_fr)
 dev.off()
 
 ## histogram of max.cycle

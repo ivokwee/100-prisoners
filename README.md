@@ -16,7 +16,7 @@ This R script implements the "follow-the-box" strategy, shows the linked boxes a
 and computes the probability distribution of the maximum cycle length.
 
 For more details: https://en.wikipedia.org/wiki/100_prisoners_problem
-For the solution, see for example: https://www.youtube.com/watch?v=iSNsgj1OCLA (Veritasium)
+For the solution, see for example: https://www.youtube.com/watch?v=iSNsgj1OCLA (Veritasium), or https://datagenetics.com/blog/december42014/index.html (DataGenetics).
 
 
 <img src="graph.png" width="32%"><img src="histogram.png" width="32%"><img src="barplot.png" width="32%">
