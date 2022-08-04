@@ -12,12 +12,13 @@
 
 
 ##------------------------------------------------------------------------
-## Define optimal strategy: choose box with own number, check and then
-## go to next box according to number in the laste box. Repeat until
-## your number is found or fail if 50 steps are exceeded.
+## Define optimal "follow-the-box" strategy: choose box with own
+## number, check and then go to next box according to number in the
+## last box. Repeat until your number is found or fail if 50 steps
+## are exceeded.
 ## ------------------------------------------------------------------------
 
-strategicTurn <- function(field, i) {
+followBox <- function(field, i) {
     kmax <- length(field)/2
     for(k in 1:kmax) {
         if(k==1) {
@@ -33,7 +34,7 @@ strategicTurn <- function(field, i) {
 }
 
 ## random choice strategy... not good
-randomTurn <- function(field, i) {
+randomBox <- function(field, i) {
     sel <- sample(100,50)
     opened <- field[sel]
     opened
@@ -50,8 +51,8 @@ niter=1000
 result <- rep(NA,niter)
 for(i in 1:niter) {
     field <- sample(100)
-    ##game  <- sapply(1:100, function(i) randomTurn(field, i))
-    game  <- sapply(1:100, function(i) strategicTurn(field, i))    
+    ##game  <- sapply(1:100, function(i) randomBox(field, i))
+    game  <- sapply(1:100, function(i) followBox(field, i))    
     result[i] <- all(game==TRUE)*1
 }
 mean(result)
@@ -78,12 +79,12 @@ for(i in 1:100000) {
 
 ## plot example graph
 png("graph.png")
-plot(G, vertex.size=7, layout=layout_with_fr)
+plot(G, vertex.shape="square", vertex.size=7, layout=layout_with_fr)
 dev.off()
 
 ## histogram of max.cycle
 png("histogram.png")
-hist(max.cycle, breaks=100)
+hist(max.cycle, breaks=100, xlab="maximum cycle size")
 abline(v=50, lty=2, col="red", lwd=2)
 dev.off()
 
@@ -97,15 +98,15 @@ mean(max.cycle <= 50)
 ## Does the probability of winning depend on the number of prisoners?
 ## We repeat the same but for different number of prison sizes (psize).
 ##------------------------------------------------------------------------
-niter=1000  ## increase for more accuracy
+niter=10000  ## increase for more accuracy
 psizes = c(10,20,50,100,250,500,1000)
 all.results <- c()
 for(psize in psizes) {
     result <- rep(NA,niter)
     for(i in 1:niter) {
         field <- sample(psize)
-        ##game  <- sapply(1:100, function(i) randomTurn(field, i))
-        game  <- sapply(1:psize, function(i) strategicTurn(field, i))    
+        ##game  <- sapply(1:100, function(i) randomBox(field, i))
+        game  <- sapply(1:psize, function(i) followBox(field, i))    
         result[i] <- all(game==TRUE)*1
     }
     mean(result)
@@ -113,5 +114,9 @@ for(psize in psizes) {
 }
 
 all.results
-barplot(all.results, names.arg=paste("L=",psizes))
 
+png("barplot.png")
+barplot(all.results, names.arg=paste("P=",psizes),
+    main="Winning probability vs prison size",
+    ylab = "probability", xlab="prison size")
+dev.off()
