@@ -18,25 +18,25 @@
 ## are exceeded.
 ## ------------------------------------------------------------------------
 
-followBox <- function(field, i) {
-    kmax <- length(field)/2
+followBox <- function(boxes, i) {
+    kmax <- length(boxes)/2
     for(k in 1:kmax) {
         if(k==1) {
             next.box <- i  ## start with box with own number
             ##next.box <- sample(100,1)            
         } else {
-            next.box <- field[last.box]
+            next.box <- boxes[last.box]
         }
-        if(field[next.box]==i) return(TRUE)
+        if(boxes[next.box]==i) return(TRUE)
         last.box <- next.box
     }
     return(FALSE) ## failed
 }
 
 ## random choice strategy... not good
-randomBox <- function(field, i) {
+randomBox <- function(boxes, i) {
     sel <- sample(100,50)
-    opened <- field[sel]
+    opened <- boxes[sel]
     opened
     if(i %in% opened) return(TRUE)
     return(FALSE)
@@ -50,9 +50,9 @@ randomBox <- function(field, i) {
 niter=1000
 result <- rep(NA,niter)
 for(i in 1:niter) {
-    field <- sample(100)
-    ##game  <- sapply(1:100, function(i) randomBox(field, i))
-    game  <- sapply(1:100, function(i) followBox(field, i))    
+    boxes <- sample(100)
+    ##game  <- sapply(1:100, function(i) randomBox(boxes, i))
+    game  <- sapply(1:100, function(i) followBox(boxes, i))    
     result[i] <- all(game==TRUE)*1
 }
 mean(result)
@@ -63,11 +63,11 @@ mean(result)
 max.cycle <- c()
 for(i in 1:100000) {
 
-    # sample new game field
-    field <- sample(100)
+    # sample new game with new boxes
+    boxes <- sample(100)
 
     # define links/edges and make the graph
-    edges <- mapply(c, 1:100, field[1:100])
+    edges <- mapply(c, 1:100, boxes[1:100])
     G <- igraph::make_graph(as.vector(edges))
     ##plot(G, vertex.size=0.4)    
 
@@ -104,9 +104,9 @@ all.results <- c()
 for(psize in psizes) {
     result <- rep(NA,niter)
     for(i in 1:niter) {
-        field <- sample(psize)
-        ##game  <- sapply(1:100, function(i) randomBox(field, i))
-        game  <- sapply(1:psize, function(i) followBox(field, i))    
+        boxes <- sample(psize)
+        ##game  <- sapply(1:100, function(i) randomBox(boxes, i))
+        game  <- sapply(1:psize, function(i) followBox(boxes, i))    
         result[i] <- all(game==TRUE)*1
     }
     mean(result)
