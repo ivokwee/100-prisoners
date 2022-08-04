@@ -86,7 +86,7 @@ dev.off()
 
 ## histogram of max.cycle
 png("histogram.png")
-hist(max.cycle, breaks=100, xlab="maximum cycle size")
+hist(max.cycle, breaks=100, xlab="maximum cycle length")
 abline(v=50, lty=2, col="red", lwd=2)
 dev.off()
 
