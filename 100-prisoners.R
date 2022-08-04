@@ -100,7 +100,7 @@ mean(max.cycle <= 50)
 ## Does the probability of winning depend on the number of prisoners?
 ## We repeat the same but for different number of prison sizes (psize).
 ##------------------------------------------------------------------------
-niter=10000  ## increase for more accuracy
+niter=1000  ## increase for more accuracy
 psizes = c(10,20,50,100,250,500,1000)
 all.results <- c()
 for(psize in psizes) {
@@ -114,7 +114,6 @@ for(psize in psizes) {
     mean(result)
     all.results <- c(all.results, mean(result))
 }
-
 all.results
 
 png("barplot.png")
