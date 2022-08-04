@@ -77,11 +77,15 @@ for(i in 1:100000) {
 }
 
 ## plot example graph
+png("graph.png")
 plot(G, vertex.size=7, layout=layout_with_fr)
+dev.off()
 
 ## histogram of max.cycle
+png("histogram.png")
 hist(max.cycle, breaks=100)
 abline(v=50, lty=2, col="red", lwd=2)
+dev.off()
 
 ##------------------------------------------------------------------------
 ## What is the probability that the max ring size is 50 or smaller?
