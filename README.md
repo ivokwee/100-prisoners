@@ -14,3 +14,7 @@ in 2003.
 For more details: https://en.wikipedia.org/wiki/100_prisoners_problem
 
 For the solution, see for example: https://www.youtube.com/watch?v=iSNsgj1OCLA (Veritasium)
+
+![graph](graph.png)
+![histogram](histogram.png)
+
