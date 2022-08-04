@@ -60,6 +60,8 @@ mean(result)
 ##------------------------------------------------------------------------
 ## What is the probability distribution of maximum ring size?
 ##------------------------------------------------------------------------
+library(igraph)
+
 max.cycle <- c()
 for(i in 1:100000) {
 
@@ -72,7 +74,7 @@ for(i in 1:100000) {
     ##plot(G, vertex.size=0.4)    
 
     # get maximum cycle size
-    csize <- max(components(G)$csize)
+    csize <- max(igraph::components(G)$csize)
     csize    
     max.cycle <- c(max.cycle, csize)
 }
